@@ -35,11 +35,15 @@ npm run dev
 
 App läuft auf [http://localhost:4317](http://localhost:4317).
 
-3. Supabase-Migrationen anwenden:
+## Supabase
 
-```bash
-npx supabase link --project-ref YOUR_PROJECT_REF
-npx supabase db push
+Roomly teilt das **DriveLog**-Supabase-Projekt (Free-Plan, max. 2 Projekte). Die Tabellen liegen im Schema `roomly` und kollidieren nicht mit DriveLogs `public.expenses` / Fahrzeugen.
+
+Auth (E-Mail-Bestätigung, Google) bleibt die DriveLog-Konfiguration. Neue User bekommen automatisch ein `roomly.profiles`-Row. DriveLog-Redirects bleiben unverändert; Roomly-Callbacks sind zusätzlich erlaubt.
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://frdgpfvpzhvmriqxyabi.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ```
 
 ## Projektstruktur
