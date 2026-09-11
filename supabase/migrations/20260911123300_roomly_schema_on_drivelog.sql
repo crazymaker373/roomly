@@ -2,7 +2,7 @@ CREATE SCHEMA IF NOT EXISTS roomly;
 CREATE SCHEMA IF NOT EXISTS roomly_private;
 
 GRANT USAGE ON SCHEMA roomly TO anon, authenticated, service_role;
-GRANT USAGE ON SCHEMA roomly_private TO postgres, service_role;
+GRANT USAGE ON SCHEMA roomly_private TO anon, authenticated, service_role, postgres;
 
 CREATE TYPE roomly.expense_category AS ENUM (
   'moebel', 'deko', 'elektronik', 'kueche', 'sonstiges'
@@ -117,9 +117,9 @@ $$;
 REVOKE ALL ON FUNCTION roomly_private.is_household_member(UUID) FROM PUBLIC;
 REVOKE ALL ON FUNCTION roomly_private.get_room_household_id(UUID) FROM PUBLIC;
 REVOKE ALL ON FUNCTION roomly_private.get_expense_household_id(UUID) FROM PUBLIC;
-GRANT EXECUTE ON FUNCTION roomly_private.is_household_member(UUID) TO authenticated;
-GRANT EXECUTE ON FUNCTION roomly_private.get_room_household_id(UUID) TO authenticated;
-GRANT EXECUTE ON FUNCTION roomly_private.get_expense_household_id(UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION roomly_private.is_household_member(UUID) TO anon, authenticated, service_role;
+GRANT EXECUTE ON FUNCTION roomly_private.get_room_household_id(UUID) TO anon, authenticated, service_role;
+GRANT EXECUTE ON FUNCTION roomly_private.get_expense_household_id(UUID) TO anon, authenticated, service_role;
 
 CREATE OR REPLACE FUNCTION roomly.seed_default_rooms(household_id UUID)
 RETURNS VOID
